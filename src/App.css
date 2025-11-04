@@ -1,0 +1,35 @@
+#root {
+  width: 100%;
+  margin: 0;
+}
+
+/* Ajuste para que el contenido no quede debajo del navbar fijo */
+.main-content {
+  padding-top: 4rem;
+}
+
+.navbar-brand-custom {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #fff !important;
+}
+
+.cart-widget {
+  display: flex;
+  align-items: center;
+  color: white;
+  transition: color 0.2s ease-in-out;
+}
+
+.cart-widget:hover {
+  color: #a0a0a0;
+  cursor: pointer;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
