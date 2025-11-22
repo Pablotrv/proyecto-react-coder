@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../data/products";
+import { getProductById } from "../data/products";
 import ItemDetail from "./ItemDetail";
 import Loading from "./Loading";
 
-const getItem = (id) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const item = products.find((p) => p.id === id);
-      resolve(item);
-    }, 500);
-  });
-};
+// const getItem = (id) => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       const item = products.find((p) => p.id === id);
+//       resolve(item);
+//     }, 500);
+//   });
+// };
 
 const ItemDetailContainer = () => {
   const [item, setItem] = useState(null);
@@ -20,7 +20,7 @@ const ItemDetailContainer = () => {
 
   useEffect(() => {
     setLoading(true);
-    getItem(itemId)
+    getProductById(itemId)
       .then((response) => {
         setItem(response);
       })

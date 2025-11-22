@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import { products } from "../data/products";
+import { getProductsByCategory } from "../data/products";
 import ItemList from "./ItemList";
 import Loading from "./Loading";
 
-const getProducts = (categoryId) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const filteredProducts = categoryId
-        ? products.filter((p) => p.category === categoryId)
-        : products;
-      resolve(filteredProducts);
-    }, 1000);
-  });
-};
+// const getProducts = (categoryId) => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       const filteredProducts = categoryId
+//         ? products.filter((p) => p.category === categoryId)
+//         : products;
+//       resolve(filteredProducts);
+//     }, 1000);
+//   });
+// };
 
 const ItemListContainer = ({ greeting }) => {
   const [items, setItems] = useState([]);
@@ -23,7 +23,7 @@ const ItemListContainer = ({ greeting }) => {
 
   useEffect(() => {
     setLoading(true);
-    getProducts(categoryId)
+    getProductsByCategory(categoryId)
       .then((response) => {
         setItems(response);
       })

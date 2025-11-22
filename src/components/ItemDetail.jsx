@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import ItemCount from "./ItemCount";
+import "../App.css";
 
 const ItemDetail = ({ item }) => {
   const handleOnAdd = (quantity) => {
@@ -12,7 +13,7 @@ const ItemDetail = ({ item }) => {
     <Container className="my-5">
       <Row>
         <Col md={6}>
-          <Card.Img variant="top" src={item.img} />
+          <Card.Img className="card-img" variant="top" src={item.img} />
         </Col>
         <Col md={6} className="d-flex flex-column justify-content-center">
           <Card.Body>
