@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, Link } from "react-router-dom";
 import CartWidget from "./CartWidget.jsx";
+import logo from "../assets/logo.jpg";
 
 const NavBar = () => {
   return (
