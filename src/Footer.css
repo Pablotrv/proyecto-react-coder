@@ -1,0 +1,11 @@
+.footer {
+  background-color: #242424;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+.footer p {
+  margin: 5px 0;
+}

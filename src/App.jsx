@@ -3,12 +3,15 @@ import NavBar from "./components/navBar.jsx";
 import ItemListContainer from "./components/itemListContainer.jsx";
 import ItemDetailContainer from "./components/ItemDetailContainer.jsx";
 import Error from "./components/Error.jsx";
+import Footer from "./Footer.jsx";
+import DolarQuote from "./DolarQuote.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
+      <DolarQuote />
       <NavBar />
       <Routes>
         <Route
@@ -22,6 +25,7 @@ function App() {
         <Route path="/404" element={<Error />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

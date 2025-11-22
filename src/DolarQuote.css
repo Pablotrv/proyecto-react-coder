@@ -1,0 +1,11 @@
+.dolar-container {
+  background-color: #1a1a1a;
+  padding: 5px 0;
+}
+
+.dolar-text {
+  color: #a0a0a0;
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+}
