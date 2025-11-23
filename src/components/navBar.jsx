@@ -7,17 +7,23 @@ import logo from "../assets/logo.png";
 
 const NavBar = () => {
   return (
-    <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top">
-      <Nav.Link as={NavLink} to="/">
-        <img src={logo} alt="Logo" className="logo" />
-      </Nav.Link>
+    <Navbar
+      expand="lg"
+      bg="dark"
+      data-bs-theme="dark"
+      sticky="top"
+      className="justify-content-between"
+    >
       <Container>
-        <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
-          TRV Store
+        <Navbar.Brand as={Link} to="/">
+          <img src={logo} alt="Logo" className="logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className="justify-content-center"
+        >
+          <Nav>
             <Nav.Link as={NavLink} to="/category/teclados">
               Teclados
             </Nav.Link>
@@ -28,8 +34,8 @@ const NavBar = () => {
               Monitores
             </Nav.Link>
           </Nav>
-          <CartWidget />
         </Navbar.Collapse>
+        <CartWidget />
       </Container>
     </Navbar>
   );
