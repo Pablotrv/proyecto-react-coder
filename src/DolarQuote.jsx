@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 import "./DolarQuote.css";
 
 const DolarQuote = () => {
-  const [dolarBlue, setDolarBlue] = useState(null);
+  const [dolarBlue, setDolarBlue] = useState("");
 
   useEffect(() => {
-    fetch("https://bluelytics.com.ar/api/v2/latest")
-      .then((res) => res.json())
+    fetch("https://dolarapi.com/v1/dolares/blue")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Error fetching dollar quote");
+        }
+        return res.json();
+      })
       .then((data) => {
-        setDolarBlue(data.blue);
+        setDolarBlue(data.venta.toString());
       })
       .catch((error) => console.error("Error fetching dollar quote:", error));
   }, []);
@@ -16,10 +21,7 @@ const DolarQuote = () => {
   return (
     <div className="dolar-container">
       {dolarBlue ? (
-        <p className="dolar-text">
-          Dólar Blue | Compra: ${dolarBlue.value_buy} | Venta: $
-          {dolarBlue.value_sell}
-        </p>
+        <p className="dolar-text">Dólar Blue: ${dolarBlue}</p>
       ) : (
         <p className="dolar-text">Cargando cotización...</p>
       )}
