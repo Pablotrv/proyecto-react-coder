@@ -3,11 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, Link } from "react-router-dom";
 import CartWidget from "./CartWidget.jsx";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 
 const NavBar = () => {
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top">
+      <Nav.Link as={NavLink} to="/">
+        <img src={logo} alt="Logo" className="logo" />
+      </Nav.Link>
       <Container>
         <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
           TRV Store
