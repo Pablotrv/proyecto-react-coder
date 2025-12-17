@@ -3,6 +3,17 @@
   margin: 0;
 }
 
+/* Estilos para el Sticky Footer */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
 /* Ajuste para que el contenido no quede debajo del navbar fijo */
 .main-content {
   padding-top: 4rem;

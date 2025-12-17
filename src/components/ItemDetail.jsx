@@ -2,11 +2,20 @@ import React from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import ItemCount from "./ItemCount";
 import "../App.css";
+import { useContext } from "react";
+import { CartContext } from "../context/cartContext.jsx";
+import { toast } from "react-toastify";
 
 const ItemDetail = ({ item }) => {
+  const { addItem } = useContext(CartContext);
   const handleOnAdd = (quantity) => {
-    console.log(`Se agregaron ${quantity} unidades`);
-    // Aquí iría la lógica para añadir al carrito
+    toast.success(
+      `Agregaste ${quantity} ${quantity > 1 ? "unidades" : "unidad"} de ${
+        item.name
+      }`,
+      { autoClose: 2000 }
+    );
+    addItem(item, quantity);
   };
 
   return (

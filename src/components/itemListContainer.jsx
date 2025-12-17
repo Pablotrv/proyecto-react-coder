@@ -1,44 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import { getProductsByCategory } from "../data/products";
-import ItemList from "./ItemList";
-import Loading from "./Loading";
-
-// const getProducts = (categoryId) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       const filteredProducts = categoryId
-//         ? products.filter((p) => p.category === categoryId)
-//         : products;
-//       resolve(filteredProducts);
-//     }, 1000);
-//   });
-// };
+import { getProductsByCategory } from "../data/products.jsx";
+import ItemList from "./ItemList.jsx";
+import Loading from "./Loading.jsx";
 
 const ItemListContainer = ({ greeting }) => {
-  const [items, setItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState("Nuestros Productos");
   const { categoryId } = useParams();
 
   useEffect(() => {
     setLoading(true);
     getProductsByCategory(categoryId)
-      .then((response) => {
-        setItems(response);
+      .then((data) => {
+        setProducts(data);
+        setTitle(
+          categoryId
+            ? `Productos de la categoría: ${categoryId}`
+            : "Nuestros Productos"
+        );
+      })
+      .catch((err) => {
+        console.error(err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, [categoryId]);
 
-  if (loading) return <Loading />;
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    <Container className="mt-4 main-content">
-      <h2>{categoryId ? `Categoría: ${categoryId}` : greeting}</h2>
-      <ItemList products={items} />
-    </Container>
+    <div>
+      <h1 className="text-center my-4">{title}</h1>
+      <ItemList products={products} />
+    </div>
   );
 };
 

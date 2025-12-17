@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById } from "../data/products";
-import ItemDetail from "./ItemDetail";
+import ItemDetail from "./ItemDetail.jsx";
 import Loading from "./Loading";
-
-// const getItem = (id) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       const item = products.find((p) => p.id === id);
-//       resolve(item);
-//     }, 500);
-//   });
-// };
+import { getProductById } from "../data/products.jsx";
 
 const ItemDetailContainer = () => {
   const [item, setItem] = useState(null);
@@ -21,8 +12,11 @@ const ItemDetailContainer = () => {
   useEffect(() => {
     setLoading(true);
     getProductById(itemId)
-      .then((response) => {
-        setItem(response);
+      .then((product) => {
+        setItem(product);
+      })
+      .catch((err) => {
+        console.error(err);
       })
       .finally(() => {
         setLoading(false);
@@ -32,8 +26,7 @@ const ItemDetailContainer = () => {
   if (loading) return <Loading />;
 
   return (
-    <>{item ? <ItemDetail item={item} /> : <h2>Producto no encontrado</h2>}</>
+    <div className="main-content">{item && <ItemDetail item={item} />}</div>
   );
 };
-
 export default ItemDetailContainer;

@@ -1,11 +1,16 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 import { NavLink, Link } from "react-router-dom";
 import CartWidget from "./CartWidget.jsx";
 import logo from "../assets/logo.png";
+import { products } from "../data/products.jsx";
 
 const NavBar = () => {
+  // Obtenemos las categorías únicas de los productos
+  const categories = [...new Set(products.map((product) => product.category))];
+
   return (
     <Navbar
       expand="lg"
@@ -24,18 +29,24 @@ const NavBar = () => {
           className="justify-content-center"
         >
           <Nav>
-            <Nav.Link as={NavLink} to="/category/teclados">
-              Teclados
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/category/mouses">
-              Mouses
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/category/monitores">
-              Monitores
-            </Nav.Link>
+            {categories.map((category) => (
+              <Nav.Link
+                as={NavLink}
+                key={category}
+                to={`/category/${category}`}
+              >
+                {/* Capitalizamos la primera letra para mostrarla */}
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
-        <CartWidget />
+        <div className="d-flex align-items-center">
+          <CartWidget />
+          <Link to="/login" className="ms-3">
+            <Button variant="outline-light">Login</Button>
+          </Link>
+        </div>
       </Container>
     </Navbar>
   );
