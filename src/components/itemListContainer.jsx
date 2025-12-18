@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsByCategory } from "../data/products.jsx";
+import { getProductsByCategoryFromFirebase } from "../data/products.jsx";
 import ItemList from "./ItemList.jsx";
 import Loading from "./Loading.jsx";
 
@@ -12,7 +12,7 @@ const ItemListContainer = ({ greeting }) => {
 
   useEffect(() => {
     setLoading(true);
-    getProductsByCategory(categoryId)
+    getProductsByCategoryFromFirebase(categoryId)
       .then((data) => {
         setProducts(data);
         setTitle(

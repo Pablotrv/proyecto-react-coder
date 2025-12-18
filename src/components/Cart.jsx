@@ -7,6 +7,7 @@ import {
   addDoc,
   serverTimestamp,
   doc,
+  increment,
   writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase/config.js";
@@ -51,9 +52,12 @@ const Cart = () => {
     // Por cada item en el carrito, verificamos y actualizamos su stock
     for (const item of cart) {
       const productRef = doc(db, "products", item.id);
+      // NOTA: No podemos confiar en `item.stock` del carrito, ya que puede estar desactualizado.
+      // La validación de stock real se hará con las reglas de seguridad de Firestore en un paso más avanzado.
+      // Por ahora, descontamos usando `increment`.
       if (item.stock >= item.quantity) {
         batch.update(productRef, {
-          stock: item.stock - item.quantity,
+          stock: increment(-item.quantity),
         });
       } else {
         outOfStock.push(item);

@@ -1,6 +1,6 @@
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config.js";
-import { products } from "../data/products.jsx";
+import { productsData } from "../data/products-data.js";
 
 export const seedProducts = async () => {
   try {
@@ -8,7 +8,7 @@ export const seedProducts = async () => {
 
     const productsRef = collection(db, "products");
 
-    for (const product of products) {
+    for (const product of productsData) {
       await addDoc(productsRef, product);
       console.log(`✅ Producto "${product.name}" agregado con éxito`);
     }

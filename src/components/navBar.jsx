@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,20 +6,28 @@ import Button from "react-bootstrap/Button";
 import { NavLink, Link } from "react-router-dom";
 import CartWidget from "./CartWidget.jsx";
 import logo from "../assets/logo.png";
-import { products } from "../data/products.jsx";
 import { useAuth } from "../context/authContext.jsx";
 import { auth } from "../firebase/config.js";
 import { signOut } from "firebase/auth";
+import { getProductsFromFirebase } from "../data/products.jsx";
 
 const NavBar = () => {
   const { currentUser } = useAuth();
+  const [categories, setCategories] = useState([]);
 
   const handleLogout = () => {
     signOut(auth).catch((error) => console.error("Error on logout", error));
   };
 
-  // Obtenemos las categorías únicas de los productos
-  const categories = [...new Set(products.map((product) => product.category))];
+  useEffect(() => {
+    // Obtenemos las categorías únicas desde Firebase
+    getProductsFromFirebase().then((products) => {
+      const uniqueCategories = [
+        ...new Set(products.map((product) => product.category)),
+      ];
+      setCategories(uniqueCategories);
+    });
+  }, []);
 
   return (
     <Navbar
