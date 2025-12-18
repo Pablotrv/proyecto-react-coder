@@ -10,6 +10,7 @@ import DolarQuote from "./DolarQuote.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "./context/cartContext.jsx";
+import { AuthProvider } from "./context/authContext.jsx";
 
 // --- PASO 1: Importa la función de sembrado ---
 import { seedProducts } from "./components/seedProducts.js";
@@ -18,8 +19,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <CartProvider>
-          {/* 
+        <AuthProvider>
+          <CartProvider>
+            {/* 
             --- BOTÓN TEMPORAL PARA SUBIR PRODUCTOS A FIREBASE ---
             
             INSTRUCCIONES:
@@ -28,30 +30,31 @@ function App() {
             3. Revisa la consola del navegador y tu base de datos de Firestore.
             4. Una vez que los productos estén subidos, VUELVE A COMENTAR O ELIMINA EL BOTÓN.
           */}
-          {/* <button onClick={seedProducts}>Subir Productos a Firebase</button> */}
+            {/*<button onClick={seedProducts}>Subir Productos a Firebase</button>*/}
 
-          <DolarQuote />
-          <NavBar />
-          <main className="content-wrap">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ItemListContainer greeting="¡Bienvenido a TU tienda Gamer!" />
-                }
-              />
-              <Route
-                path="/category/:categoryId"
-                element={<ItemListContainer />}
-              />
-              <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/404" element={<Error />} />
-              <Route path="*" element={<Navigate to="/404" />} />
-            </Routes>
-          </main>
-        </CartProvider>
+            <DolarQuote />
+            <NavBar />
+            <main className="content-wrap">
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ItemListContainer greeting="¡Bienvenido a TU tienda Gamer!" />
+                  }
+                />
+                <Route
+                  path="/category/:categoryId"
+                  element={<ItemListContainer />}
+                />
+                <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/404" element={<Error />} />
+                <Route path="*" element={<Navigate to="/404" />} />
+              </Routes>
+            </main>
+          </CartProvider>
+        </AuthProvider>
         <Footer />
       </div>
     </BrowserRouter>

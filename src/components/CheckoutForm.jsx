@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-const CheckoutForm = ({ onConfirm }) => {
+const CheckoutForm = ({ onConfirm, loggedInUserEmail }) => {
   const [buyer, setBuyer] = useState({
     name: "",
     phone: "",
-    email: "",
+    email: loggedInUserEmail || "",
   });
+
+  useEffect(() => {
+    // Si el email del usuario logueado cambia, actualizamos el estado
+    setBuyer((prevBuyer) => ({
+      ...prevBuyer,
+      email: loggedInUserEmail || "",
+    }));
+  }, [loggedInUserEmail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,6 +65,7 @@ const CheckoutForm = ({ onConfirm }) => {
               value={buyer.email}
               onChange={handleChange}
               placeholder="Email"
+              readOnly={!!loggedInUserEmail} // Hace el campo de solo lectura si el usuario está logueado
               required
             />
           </Form.Group>

@@ -1,3 +1,4 @@
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,8 +7,17 @@ import { NavLink, Link } from "react-router-dom";
 import CartWidget from "./CartWidget.jsx";
 import logo from "../assets/logo.png";
 import { products } from "../data/products.jsx";
+import { useAuth } from "../context/authContext.jsx";
+import { auth } from "../firebase/config.js";
+import { signOut } from "firebase/auth";
 
 const NavBar = () => {
+  const { currentUser } = useAuth();
+
+  const handleLogout = () => {
+    signOut(auth).catch((error) => console.error("Error on logout", error));
+  };
+
   // Obtenemos las categorías únicas de los productos
   const categories = [...new Set(products.map((product) => product.category))];
 
@@ -43,9 +53,18 @@ const NavBar = () => {
         </Navbar.Collapse>
         <div className="d-flex align-items-center">
           <CartWidget />
-          <Link to="/login" className="ms-3">
-            <Button variant="outline-light">Login</Button>
-          </Link>
+          {currentUser ? (
+            <div className="d-flex align-items-center ms-3">
+              <span className="text-white me-3">{currentUser.email}</span>
+              <Button variant="outline-light" onClick={handleLogout}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Link to="/login" className="ms-3">
+              <Button variant="outline-light">Login</Button>
+            </Link>
+          )}
         </div>
       </Container>
     </Navbar>

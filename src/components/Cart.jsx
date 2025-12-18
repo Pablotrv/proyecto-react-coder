@@ -12,16 +12,24 @@ import {
 import { db } from "../firebase/config.js";
 import CheckoutForm from "./CheckoutForm.jsx";
 import CartItem from "./CartItem.jsx";
+import { useAuth } from "../context/authContext.jsx";
 
 const Cart = () => {
   const { cart, clearCart, removeItem, total } = useContext(CartContext);
+  const { currentUser } = useAuth();
   const [orderId, setOrderId] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async (buyerData) => {
     setLoading(true);
+
+    // Si el usuario está logueado, agregamos su ID a la orden
+    const buyerInfo = currentUser
+      ? { ...buyerData, id: currentUser.uid }
+      : buyerData;
+
     const order = {
-      buyer: buyerData,
+      buyer: buyerInfo,
       items: cart.map(({ id, name, price, quantity }) => ({
         id,
         name,
@@ -132,7 +140,10 @@ const Cart = () => {
         Vaciar Carrito
       </Button>
       <hr />
-      <CheckoutForm onConfirm={handleCheckout} />
+      <CheckoutForm
+        onConfirm={handleCheckout}
+        loggedInUserEmail={currentUser?.email}
+      />
     </Container>
   );
 };

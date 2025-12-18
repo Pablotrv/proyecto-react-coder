@@ -1,3 +1,13 @@
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../firebase/config.js";
+
 export const products = [
   {
     id: "1",
@@ -182,6 +192,44 @@ export const getProducts = () => {
       resolve(products);
     }, 1000);
   });
+};
+
+// Obtener todos los productos
+export const getProductsFromFirebase = async () => {
+  const productsRef = collection(db, "products");
+  const querySnapshot = await getDocs(productsRef);
+
+  const products = [];
+  querySnapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() });
+  });
+
+  return products;
+};
+
+// Obtener un producto por ID
+export const getProductByIdFromFirebase = async (id) => {
+  const docRef = doc(db, "products", id);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
+};
+
+// Obtener productos por categoría
+export const getProductsByCategoryFromFirebase = async (categoryId) => {
+  const productsRef = collection(db, "products");
+
+  if (!categoryId) return await getProductsFromFirebase();
+
+  const q = query(productsRef, where("category", "==", categoryId));
+  const querySnapshot = await getDocs(q);
+
+  const products = [];
+  querySnapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() });
+  });
+
+  return products;
 };
 
 export const getProductById = (id) => {

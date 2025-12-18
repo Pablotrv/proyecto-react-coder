@@ -1,20 +1,21 @@
-// firebase-config.js
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-// TODO: Reemplaza esto con el objeto de configuración de tu proyecto de Firebase.
-// Lo encuentras en: Configuración del proyecto -> General -> Tus apps -> Configuración del SDK.
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_AUTH_DOMAIN",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_STORAGE_BUCKET",
-  messagingSenderId: "TU_MESSAGING_SENDER_ID",
-  appId: "TU_APP_ID",
+  apiKey: "AIzaSyCXQh9SdtiB_u_FLLMsaLnP6CsnrLNgimU",
+  authDomain: "trvstore-b15d7.firebaseapp.com",
+  projectId: "trvstore-b15d7",
+  storageBucket: "trvstore-b15d7.firebasestorage.app",
+  messagingSenderId: "737765804872",
+  appId: "1:737765804872:web:19134a93ada3b7a360c17d",
+  measurementId: "G-XKHB5P6KS1",
 };
 
-// Inicializa Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Exporta las instancias de Firestore y Auth
