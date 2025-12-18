@@ -10,6 +10,7 @@ const Item = ({ product }) => {
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>${product.price}</Card.Text>
+        {console.log(`Item component: Product ID for link: ${product.id}`)}
         <Link to={`/item/${product.id}`}>
           <Button variant="primary">Ver detalle</Button>
         </Link>

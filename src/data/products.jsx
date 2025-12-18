@@ -25,6 +25,9 @@ export const getProductsFromFirebase = async () => {
 export const getProductByIdFromFirebase = async (id) => {
   const docRef = doc(db, "products", id);
   const docSnap = await getDoc(docRef);
+  console.log(
+    `Attempting to fetch product with ID: ${id}. Found: ${docSnap.exists()}`
+  );
 
   return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
 };
@@ -40,6 +43,8 @@ export const getProductsByCategoryFromFirebase = async (categoryId) => {
 
   const products = [];
   querySnapshot.forEach((doc) => {
+    console.log("Firestore Doc ID (getProductsFromFirebase):", doc.id);
+    console.log("Firestore Doc Data (getProductsFromFirebase):", doc.data());
     products.push({ id: doc.id, ...doc.data() });
   });
 
