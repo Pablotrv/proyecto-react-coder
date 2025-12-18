@@ -22,13 +22,8 @@ function App() {
         <AuthProvider>
           <CartProvider>
             {/* 
-            --- BOTÓN TEMPORAL PARA SUBIR PRODUCTOS A FIREBASE ---
-            
-            INSTRUCCIONES:
-            1. Descomenta la línea del botón de abajo.
-            2. Abre tu app en el navegador y haz clic en el botón.
-            3. Revisa la consola del navegador y tu base de datos de Firestore.
-            4. Una vez que los productos estén subidos, VUELVE A COMENTAR O ELIMINA EL BOTÓN.
+            --- BOTÓN TEMPORAL PARA SUBIR PRODUCTOS A FIREBASE ---            
+           
           */}
             {/*<button onClick={seedProducts}>Subir Productos a Firebase</button>*/}
 
